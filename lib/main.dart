@@ -1,5 +1,5 @@
 
-import 'package:bmicalculator_project/modules/BmiScreen.dart';
+import 'package:bmicalculator_project/modules/bmiScreen.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -15,8 +15,8 @@ class MyApp extends StatelessWidget {
     return SafeArea(
       child: MaterialApp(
         theme: ThemeData(
-          scaffoldBackgroundColor: Colors.grey[900],
-          appBarTheme: AppBarTheme(color: Colors.grey[900]),
+          scaffoldBackgroundColor: Color(0xff0a0e20),
+          appBarTheme: AppBarTheme(color: Color(0xff0a0e20),),
         ),
         debugShowCheckedModeBanner: false,
         home: BmiScreen(),

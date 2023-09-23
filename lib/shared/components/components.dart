@@ -12,7 +12,7 @@ class IsmaleCard extends StatelessWidget {
   Widget build(BuildContext context) {
     // TODO: implement build
     return Expanded(
-      child: InkWell(
+      child: GestureDetector(
         onTap: onTap,
         child: Container(
           decoration: BoxDecoration(
@@ -26,14 +26,13 @@ class IsmaleCard extends StatelessWidget {
                 image: AssetImage('$image'),
                 height: 120.0,
                 width: 150.0,
-                color: Colors.black,
+                color: Colors.white,
               ),
               Text(
                 '$text',
                 style: GoogleFonts.acme(
                     fontSize: 30.0,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.black),
+                    color: Colors.white),
               )
             ],
           ),
@@ -56,31 +55,31 @@ class DefaultCard extends StatelessWidget{
     return Expanded(
       child: Container(
         decoration: BoxDecoration(
-            color: Colors.grey[400],
+            color: const Color(0xff1d1e32),
             borderRadius: BorderRadius.circular(10.0)),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-             Text(
+            Text(
                '$text',
               style: GoogleFonts.acme(
                   fontSize: 22.0,
-                  color: Colors.black,
+                  color: Colors.white,
                   fontWeight: FontWeight.bold),
             ),
-             Text(
+            Text(
               '$value',
               style: const TextStyle(
                   fontSize: 50.0,
                   fontWeight: FontWeight.w900,
-                  color: Colors.black),
+                  color: Colors.white),
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 FloatingActionButton(
                   onPressed: minus,
-                  backgroundColor: Colors.blue,
+                  backgroundColor: const Color(0xff4e515e),
                   child: const Icon(
                     Icons.remove,
                     size: 30.0,
@@ -90,7 +89,7 @@ class DefaultCard extends StatelessWidget{
                   width: 20.0,
                 ),
                 FloatingActionButton(
-                  backgroundColor: Colors.blue,
+                  backgroundColor: const Color(0xff4e515e),
                   onPressed:plus,
                   child: const Icon(
                     Icons.add,
@@ -105,3 +104,42 @@ class DefaultCard extends StatelessWidget{
     );
   }
 }
+
+class DefaultBottom extends StatelessWidget{
+  final VoidCallback ?onPressed;
+  final String ?text;
+  const DefaultBottom({super.key, this.onPressed,this.text});
+
+  @override
+  Widget build(BuildContext context) {
+    // TODO: implement build
+    return Container(
+      width: double.infinity,
+      decoration: const BoxDecoration(
+        borderRadius: BorderRadius.only(
+          bottomLeft: Radius.circular(10.0),
+          bottomRight:Radius.circular(10.0),
+        ),
+        color: Color(0xfff50d56),
+      ),
+      child: MaterialButton(
+        padding: const EdgeInsets.symmetric(
+            vertical: 12.0
+        ),
+        onPressed:onPressed,
+        child:  Text(
+          '$text',
+          style: GoogleFonts.acme(
+            fontWeight: FontWeight.bold,
+            fontSize: 30.0,
+            color: Colors.white,
+          ),
+          textAlign: TextAlign.center,
+        ),
+      ),
+    );
+  }
+}
+
+
+

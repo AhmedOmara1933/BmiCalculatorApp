@@ -1,3 +1,6 @@
+import 'dart:math';
+
+import 'package:bmicalculator_project/modules/bmiResult.dart';
 import 'package:bmicalculator_project/shared/components/components.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -11,15 +14,14 @@ class BmiScreen extends StatefulWidget {
 
 class _BmiScreenState extends State<BmiScreen> {
   bool ismale = true;
-  double height=140;
-  int age=20;
-  int weight=70;
+  double height=180;
+  int age=28;
+  int weight=60;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        elevation: 0.0,
         centerTitle: true,
         title: Text(
           'BMI Calculator',
@@ -36,7 +38,7 @@ class _BmiScreenState extends State<BmiScreen> {
                    IsmaleCard(
                     image: 'images/Mars_symbol.svg.png',
                     text: 'Male',
-                     color: ismale?Colors.blue:Colors.grey[400],
+                     color: ismale?Colors.blueGrey:Color(0xff111327),
                      onTap: (){
                       setState(() {
                         ismale=true;
@@ -49,7 +51,7 @@ class _BmiScreenState extends State<BmiScreen> {
                   IsmaleCard(
                     text: 'Female',
                     image: 'images/Venus_symbol.svg.png',
-                    color:!ismale?Colors.blue:Colors.grey[400],
+                    color:!ismale?Colors.blueGrey:Color(0xff111327),
                     onTap: (){
                       setState(() {
                         ismale=false;
@@ -62,10 +64,10 @@ class _BmiScreenState extends State<BmiScreen> {
           ),
           Expanded(
             child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal:20.0),
+              padding: const EdgeInsets.symmetric(horizontal:20.0,vertical: 10.0),
               child: Container(
                 decoration: BoxDecoration(
-                    color: Colors.grey[400],
+                    color: Color(0xff111327),
                     borderRadius: BorderRadius.circular(10.0)),
                 width: double.infinity,
                 child: Column(
@@ -74,9 +76,9 @@ class _BmiScreenState extends State<BmiScreen> {
                     Text(
                       'HEIGHT',
                       style: GoogleFonts.acme(
-                          fontSize: 35.0,
-                          color: Colors.black,
-                          fontWeight: FontWeight.bold),
+                          fontSize: 20.0,
+                          color: Colors.white,
+                         ),
                     ),
                     const SizedBox(
                       height: 10.0,
@@ -91,20 +93,23 @@ class _BmiScreenState extends State<BmiScreen> {
                           style: const TextStyle(
                               fontSize: 50.0,
                               fontWeight: FontWeight.w900,
-                              color: Colors.black),
+                              color: Colors.white),
                         ),
                         const Text(
                           'cm',
                           style: TextStyle(
-                              fontSize: 30.0,
-                              fontWeight: FontWeight.bold,
-                              color: Colors.black),
+                              fontSize: 20.0,
+                              color: Colors.white),
                         ),
                       ],
                     ),
                     Slider(
                       min: 100,
-                      max: 220,
+                      max: 230,
+                      activeColor: Colors.white,
+                      thumbColor: Color(0xfff50d56),
+                      inactiveColor: Colors.white,
+
                       value: height,
                       onChanged: (value) {
                         setState(() {
@@ -157,28 +162,21 @@ class _BmiScreenState extends State<BmiScreen> {
               ),
             ),
           ),
-          Padding(
-            padding: const EdgeInsets.only(bottom: 10.0, left: 50.0, right: 50.0),
-            child: Container(
-              width: double.infinity,
-
-              decoration: BoxDecoration(
-                  color: Colors.grey[400],
-                  borderRadius: BorderRadius.circular(10.0)),
-              child: MaterialButton(
-                onPressed: () {},
-                child:  Text(
-                  'Calculate',
-                  style: GoogleFonts.acme(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 30.0,
-                    color: Colors.black,
-                  ),
-                  textAlign: TextAlign.center,
-                ),
-              ),
-            ),
+          DefaultBottom(
+            text: 'Calculate',
+            onPressed: (){
+              double result = weight/pow(height / 100, 2);
+              print(result.round());
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) =>BmiResult(
+                        result:result ,
+                    ),
+                  ));
+            },
           )
+
         ],
       ),
     );
