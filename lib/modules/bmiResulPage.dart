@@ -8,41 +8,16 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 class BmiResult extends StatelessWidget {
   final double result;
 
-  BmiResult({required this.result, super.key});
-
-  String? text;
-  String? tooText;
-  Color? textColor;
+   BmiResult({required this.result, super.key});
 
   @override
   Widget build(BuildContext context) {
-    if (result < 18.5) {
-      text = 'Underweight';
-      tooText = 'you have a Underweight body weight.'
-          'Good Jop!  ';
-      textColor = Colors.green;
-    } else if (result >= 18.5 && result <= 24.9) {
-      text = 'Normal';
-      tooText = 'you have a normal body weight.'
-          'Good Jop!  ';
-      textColor = Colors.yellow;
-    } else if (result >= 25 && result <= 29.9) {
-      text = 'overWeight';
-      tooText = 'you have a overWeight body weight.'
-          'Do exercise!  ';
-      textColor = Colors.grey;
-    } else if (result >= 30 && result <= 49.9) {
-      text = 'Obese';
-      tooText = 'ohhhhhhh!! you are too overWeight. '
-          'Right yourself';
-      textColor = Colors.black;
-    } else {
-      text = 'Result out of range';
-      textColor = Colors.red;
-    }
     return BlocConsumer<AppCubit, AppStates>(
       listener: (context, state) {},
       builder: (context, state) {
+        var cubit=AppCubit.get(context);
+
+        cubit.cases(result: result);
         return Scaffold(
           appBar: AppBar(
             title: const Text(
@@ -78,11 +53,11 @@ class BmiResult extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             Text(
-                              '$text',
+                              '${cubit.text}',
                               style: TextStyle(
                                   fontWeight: FontWeight.bold,
                                   fontSize: 30.0,
-                                  color: textColor),
+                                  color:cubit.textColor),
                             ),
                             Container(
                               margin: const EdgeInsets.only(
@@ -96,7 +71,7 @@ class BmiResult extends StatelessWidget {
                               ),
                             ),
                             Text(
-                              '$tooText',
+                              '${cubit.tooText}',
                               style: const TextStyle(
                                   fontWeight: FontWeight.w500,
                                   color: Colors.white,
